@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,400&display=swap');
+@import 'tailwindcss';
+@import 'sweetalert2-neutral/dist/sweetalert2.min.css';
+
+@theme inline {
+  --font-sans: 'Open Sans', system-ui, -apple-system, sans-serif;
+
+  --color-bg: var(--ng-bg);
+  --color-surface: var(--ng-surface);
+  --color-surface-2: var(--ng-surface-2);
+  --color-surface-3: var(--ng-surface-3);
+  --color-line: var(--ng-line);
+  --color-line-strong: var(--ng-line-strong);
+
+  --color-ink: var(--ng-ink);
+  --color-muted: var(--ng-muted);
+  --color-faint: var(--ng-faint);
+
+  --color-accent: var(--ng-accent);
+  --color-accent-strong: var(--ng-accent-strong);
+  --color-on-accent: var(--ng-on-accent);
+
+  --color-success: var(--ng-success);
+  --color-warning: var(--ng-warning);
+  --color-danger: var(--ng-danger);
+  --color-info: var(--ng-info);
+
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+}
+
+:root,
+[data-theme='dark'] {
+  --ng-bg: #0a0a0a;
+  --ng-surface: #141414;
+  --ng-surface-2: #1c1c1c;
+  --ng-surface-3: #262626;
+  --ng-line: #2a2a2a;
+  --ng-line-strong: #3a3a3a;
+
+  --ng-ink: #f5f5f5;
+  --ng-muted: #8a8a8a;
+  --ng-faint: #5a5a5a;
+
+  --ng-success: #16a06a;
+  --ng-warning: #d9920a;
+  --ng-danger: #e03e3e;
+  --ng-info: #2f86d4;
+
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --ng-bg: #eaeaea;
+  --ng-surface: #ffffff;
+  --ng-surface-2: #f4f4f4;
+  --ng-surface-3: #e6e6e6;
+  --ng-line: #d4d4d4;
+  --ng-line-strong: #bcbcbc;
+
+  --ng-ink: #141414;
+  --ng-muted: #5f5f5f;
+  --ng-faint: #9a9a9a;
+
+  --ng-success: #12855a;
+  --ng-warning: #b97b06;
+  --ng-danger: #c62f2f;
+  --ng-info: #1f6fbf;
+
+  color-scheme: light;
+}
+
+[data-accent='teal'] {
+  --ng-accent: #00b294;
+  --ng-accent-strong: #00967d;
+  --ng-on-accent: #04231d;
+}
+[data-accent='azure'] {
+  --ng-accent: #0078d4;
+  --ng-accent-strong: #005fab;
+  --ng-on-accent: #ffffff;
+}
+[data-accent='magenta'] {
+  --ng-accent: #e3008c;
+  --ng-accent-strong: #b80072;
+  --ng-on-accent: #ffffff;
+}
+[data-accent='amber'] {
+  --ng-accent: #e88c00;
+  --ng-accent-strong: #bd7100;
+  --ng-on-accent: #201400;
+}
+[data-accent='violet'] {
+  --ng-accent: #8764b8;
+  --ng-accent-strong: #6f4fa0;
+  --ng-on-accent: #ffffff;
+}
+[data-accent='lime'] {
+  --ng-accent: #7cbb00;
+  --ng-accent-strong: #669a00;
+  --ng-on-accent: #14200a;
+}
+
+@layer base {
+  * {
+    border-color: var(--ng-line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--ng-bg);
+    color: var(--ng-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--ng-accent);
+    color: var(--ng-on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ng-accent);
+    outline-offset: 2px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ng-line-strong) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--ng-line-strong);
+    border: 3px solid var(--ng-bg);
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--ng-accent);
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+  }
+}
+
+@layer utilities {
+  .ng-label {
+    text-transform: uppercase;
+    letter-spacing: 0em;
+    font-weight: 700;
+    font-size: 0.6875rem;
+  }
+
+  .ng-enter {
+    animation: ng-enter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .ng-tile-press {
+    transition:
+      transform 0.08s ease,
+      background 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .ng-tile-press:active {
+    transform: scale(0.985);
+  }
+}
+
+@keyframes ng-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-anim[data-phase='leaving'] {
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.view-anim[data-phase='from'] {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.view-anim[data-phase='in'] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ng-overlay {
+  transition: opacity 0.2s ease;
+}
+.ng-overlay[data-show='false'] {
+  opacity: 0;
+}
+
+.ng-modal-panel {
+  transition:
+    transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s ease;
+}
+.ng-modal-panel[data-show='false'] {
+  transform: translateY(16px) scale(0.98);
+  opacity: 0;
+}
+
+.ng-dd {
+  transition:
+    opacity 0.14s ease,
+    transform 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ng-dd[data-show='false'] {
+  opacity: 0;
+  transform: scale(0.97) translateY(-4px);
+}
+
+.ng-date::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  width: 2.5rem;
+  height: 100%;
+  cursor: pointer;
+}
+.ng-date::-webkit-datetime-edit {
+  padding: 0;
+}
+
+.swal2-container {
+  padding: 1rem;
+}
+
+.swal2-popup {
+  background: var(--ng-surface) !important;
+  color: var(--ng-ink) !important;
+  border: 1px solid var(--ng-line) !important;
+  border-left: 3px solid var(--ng-accent) !important;
+  border-radius: 0 !important;
+  font-family: var(--font-sans) !important;
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55) !important;
+}
+
+.swal2-title {
+  color: var(--ng-ink) !important;
+  font-weight: 700 !important;
+  font-size: 1.15rem !important;
+  letter-spacing: -0.01em;
+}
+
+.swal2-html-container {
+  color: var(--ng-muted) !important;
+  font-size: 0.95rem !important;
+}
+
+.swal2-actions {
+  gap: 0.5rem;
+}
+
+.swal2-styled {
+  border-radius: 0 !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0em;
+  box-shadow: none !important;
+  transition: filter 0.15s ease;
+}
+.swal2-styled:focus {
+  box-shadow: none !important;
+  outline: 2px solid var(--ng-accent) !important;
+  outline-offset: 2px;
+}
+
+.swal2-styled.swal2-confirm {
+  background: var(--ng-accent) !important;
+  color: var(--ng-on-accent) !important;
+}
+.swal2-styled.swal2-confirm:hover {
+  filter: brightness(1.08);
+}
+
+.swal2-styled.swal2-cancel {
+  background: transparent !important;
+  color: var(--ng-ink) !important;
+  border: 1px solid var(--ng-line-strong) !important;
+}
+.swal2-styled.swal2-deny {
+  background: var(--ng-danger) !important;
+  color: #fff !important;
+}
+
+.swal2-timer-progress-bar {
+  background: var(--ng-accent) !important;
+}
+
+.swal2-close {
+  color: var(--ng-muted) !important;
+  border-radius: 0 !important;
+}
+.swal2-close:hover {
+  color: var(--ng-danger) !important;
+}
+
+.swal2-toast {
+  background: var(--ng-surface-2) !important;
+  border: 1px solid var(--ng-line) !important;
+  border-left: 3px solid var(--ng-accent) !important;
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5) !important;
+}
+.swal2-toast .swal2-title {
+  font-size: 0.9rem !important;
+}
